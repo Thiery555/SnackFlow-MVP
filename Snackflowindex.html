@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnackFlow - Secure Inventory Management Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Snackflowindex.css">
+</head>
+<body>
+
+    <header id="global-header" class="main-header hidden">
+        <div class="header-left">
+            <div class="brand-wrapper">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                </svg>
+                <span class="brand-logo-text">SnackFlow</span>
+            </div>
+            <span class="system-tagline">Secure Inventory Management</span>
+        </div>
+        <div class="header-right">
+            <nav class="nav-links">
+                <button id="nav-home" class="nav-btn active" title="Dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                </button>
+                <button id="nav-ledger" class="nav-btn hidden-employee" title="Financial Ledger">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </button>
+                <button id="nav-settings" class="nav-btn" title="System Settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </button>
+            </nav>
+            <div class="profile-badge">
+                <span id="header-user-label">Jane D.</span>
+                <div class="avatar-circle">JD</div>
+            </div>
+        </div>
+    </header>
+
+    <div id="screen-login" class="app-screen view-center">
+        <div class="login-card animate-fade">
+            <div class="login-branding">
+                <svg class="login-logo animate-spin-slow" viewBox="0 0 24 24" fill="none" stroke="#2C3E50" stroke-width="2.5">
+                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                </svg>
+                <h1>SnackFlow</h1>
+                <p>Secure Inventory Management</p>
+            </div>
+            
+            <div class="segmented-control">
+                <button id="login-tab-employee" class="tab-btn active">Employee Login</button>
+                <button id="login-tab-owner" class="tab-btn">Owner Portal</button>
+            </div>
+
+            <div class="form-body">
+                <div class="form-group">
+                    <label>Username / Terminal ID</label>
+                    <input type="text" id="input-username" value="terminal_lahti_01" placeholder="Enter terminal user">
+                </div>
+                <div id="owner-secret-field" class="form-group hidden">
+                    <label>Secure Vault Password</label>
+                    <input type="password" id="input-password" placeholder="••••••••">
+                </div>
+                <button id="btn-authenticate" class="btn btn-primary btn-block">Authenticate Session</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-employee-dashboard" class="app-screen hidden padding-container">
+        <div class="screen-title-block">
+            <h2>Employee Command Center</h2>
+            <p class="breadcrumbs">Operational Terminals / Active Session</p>
+        </div>
+
+        <div class="split-layout-grid">
+            <div class="card-column">
+                <div id="action-trigger-sales" class="action-panel-row clickable">
+                    <div class="action-icon-box blue-bg">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    </div>
+                    <div class="action-details">
+                        <h3>Manual Sales Entry Flow</h3>
+                        <p>Log immediate customer transactions, drink selections, and cooked batch totals.</p>
+                    </div>
+                    <div class="chevron-arrow">➔</div>
+                </div>
+
+                <div id="action-trigger-grocery" class="action-panel-row clickable">
+                    <div class="action-icon-box orange-bg">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                    <div class="action-details">
+                        <h3>Log Grocery Deliveries</h3>
+                        <p>Register incoming raw ingredients and bulk stock inventory. (Manager Overwrite Required)</p>
+                    </div>
+                    <div class="chevron-arrow">➔</div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h3>Recent Activity Audit Log</h3>
+                    <span class="badge-live">Live Feed</span>
+                </div>
+                <ul class="ledger-list-feed">
+                    <li><span class="timestamp">10:30 AM</span> 50kg Flour Logged by Jane D.</li>
+                    <li><span class="timestamp">09:45 AM</span> 20 Soft Drinks Sold</li>
+                    <li><span class="timestamp">08:15 AM</span> 10 Liters Cooking Oil Logged</li>
+                    <li><span class="timestamp">07:00 AM</span> Terminal Session Opened at Lahti Hub</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-sales-entry" class="app-screen hidden padding-container">
+        <div class="screen-title-block">
+            <h2>Manual Sales Record Utility</h2>
+            <p class="breadcrumbs">Operational Terminals / Data Entry</p>
+        </div>
+
+        <div class="split-layout-grid horizontal-weight">
+            <div class="content-card">
+                <div class="category-block">
+                    <h4 class="category-title">Food & Snacks</h4>
+                    <div class="entry-stepper-row">
+                        <span>Cooked Food (Pies, Puff-Puffs)</span>
+                        <div class="numeric-stepper">
+                            <button class="step-decrement">-</button>
+                            <input type="number" id="qty-food" value="0" min="0">
+                            <button class="step-increment">+</button>
+                        </div>
+                    </div>
+                    <div class="entry-stepper-row">
+                        <span>Other Snacks / Small Chops</span>
+                        <div class="numeric-stepper">
+                            <button class="step-decrement">-</button>
+                            <input type="number" id="qty-snacks" value="0" min="0">
+                            <button class="step-increment">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-block" style="margin-top: 24px;">
+                    <h4 class="category-title">Beverages & Refreshments</h4>
+                    <div class="entry-stepper-row">
+                        <span>Soft Drinks (Non-Alcoholic)</span>
+                        <div class="numeric-stepper">
+                            <button class="step-decrement">-</button>
+                            <input type="number" id="qty-drinks" value="0" min="0">
+                            <button class="step-increment">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card summary-accent-card">
+                <h3>Transaction Itemization</h3>
+                <div class="basket-calculation-view">
+                    <p class="empty-state-text" id="basket-empty-msg">No current units incremental in batch.</p>
+                    <table id="basket-table" class="hidden-table w-100">
+                        <thead>
+                            <tr><th>Item Class</th><th class="text-right">Qty</th></tr>
+                        </thead>
+                        <tbody id="basket-tbody"></tbody>
+                    </table>
+                </div>
+                <button id="btn-submit-sales-batch" class="btn btn-primary btn-block" style="margin-top: auto;">Commit & Record Log</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-grocery-entry" class="app-screen hidden padding-container">
+        <div class="screen-title-block">
+            <h2>Log Bulk Grocery Deliveries</h2>
+            <p class="breadcrumbs">Operational Terminals / Back-of-House Logistics</p>
+        </div>
+
+        <div class="split-layout-grid horizontal-weight">
+            <div class="content-card">
+                <div class="category-block">
+                    <h4 class="category-title">Raw Bulk Ingredients</h4>
+                    <div class="entry-stepper-row">
+                        <span>Baking Flour (50kg Sacks)</span>
+                        <div class="numeric-stepper">
+                            <button class="step-decrement">-</button>
+                            <input type="number" id="qty-flour" value="0" min="0">
+                            <button class="step-increment">+</button>
+                        </div>
+                    </div>
+                    <div class="entry-stepper-row">
+                        <span>Cooking Oil (10L Containers)</span>
+                        <div class="numeric-stepper">
+                            <button class="step-decrement">-</button>
+                            <input type="number" id="qty-oil" value="0" min="0">
+                            <button class="step-increment">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-block" style="margin-top: 24px;">
+                    <h4 class="category-title">Beverage Restocking</h4>
+                    <div class="entry-stepper-row">
+                        <span>Crates of Soft Drinks (24 slots)</span>
+                        <div class="numeric-stepper">
+                            <button class="step-decrement">-</button>
+                            <input type="number" id="qty-crates" value="0" min="0">
+                            <button class="step-increment">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button id="btn-submit-grocery-batch" class="btn btn-primary btn-block" style="margin-top: 24px;">Commit Deliveries to Inventory</button>
+            </div>
+
+            <div class="content-card summary-accent-card">
+                <h3>Logistical Tracking Notice</h3>
+                <p class="security-warning-blurb" style="background: #E8F8F5; color: #117864; border: none; margin-top: 20px;">
+                    Authorized Action: Incoming grocery updates dynamically alter the base ingredient weight totals inside the Smart Refrigerator ecosystem.
+                </p>
+                <div class="settings-data-row" style="margin-top: 20px;">
+                    <span>Verified Supervisor Token</span>
+                    <span class="badge-tag" style="background: #2ECC71; color: white;">ACTIVE_AUTH</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-owner-dashboard" class="app-screen hidden padding-container">
+        <div class="screen-title-block">
+            <h2>Owner Administrative Control</h2>
+            <p class="breadcrumbs">Secure Root / Command Center</p>
+        </div>
+
+        <div class="owner-quad-grid">
+            <div id="card-trigger-vault" class="metric-action-card clickable">
+                <div class="card-icon-header deep-blue"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></div>
+                <h3>View Analytics Vault</h3>
+                <p>Access high-fidelity trend charts, category weight split metrics, and performance charts.</p>
+                <span class="action-link-label">Launch System Graphs ➔</span>
+            </div>
+
+            <div class="metric-action-card">
+                <div class="card-icon-header slate-gray"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
+                <h3>Product & Menu Setup</h3>
+                <p>Modify inventory standard catalog prices, drink configurations, and base sales margins.</p>
+            </div>
+
+            <div class="metric-action-card">
+                <div class="card-icon-header slate-gray"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></div>
+                <h3>Employee Management</h3>
+                <p>Provision terminal staff authentication tokens, audit access time fields, and monitor activity.</p>
+            </div>
+
+            <div class="metric-action-card">
+                <div class="card-icon-header slate-gray"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
+                <h3>Audit Vault Verification</h3>
+                <p>Review system discrepancy flags, loss trends, and unalterable administrative server data.</p>
+            </div>
+        </div>
+
+        <div class="discrepancy-log-alert-panel">
+            <div class="alert-banner-header">
+                <span class="warning-indicator-dot"></span>
+                <h4>Automated Security Discrepancy Alerts</h4>
+            </div>
+            <div class="alert-grid-scroll">
+                <div class="alert-log-item">⚠️ Warning: Cola structural usage count exceeds tracked sales log values - 10:30 AM</div>
+                <div class="alert-log-item">⚠️ Warning: Baking flour asset balance deviates from recorded delivery values - 09:12 AM</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-analytics-vault" class="app-screen hidden padding-container">
+        <div class="screen-title-block">
+            <h2>Administrative Data & Analytics Vault</h2>
+            <p class="breadcrumbs">Secure Root / System Business Intelligence</p>
+        </div>
+
+        <div class="analytics-layout-grid">
+            <div class="content-card horizontal-span">
+                <h3>Grocery Expense vs Profit Inflow Margin Tracking</h3>
+                <div class="graph-container-wrapper">
+                    <div class="simulated-line-graph">
+                        <div class="graph-plot-line"></div>
+                        <div class="graph-bar-node position-1" data-value="€1,200"></div>
+                        <div class="graph-bar-node position-2" data-value="€2,400"></div>
+                        <div class="graph-bar-node position-3" data-value="€3,900"></div>
+                        <div class="graph-bar-node position-4" data-value="€5,450"></div>
+                    </div>
+                    <div class="graph-horizontal-axis">
+                        <span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Current Week 4</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>Asset Categorization Turnover Weight</h3>
+                <div class="pie-chart-flex-box">
+                    <div class="simulated-pie-chart">
+                        <div class="pie-slice slice-1"></div>
+                        <div class="pie-slice slice-2"></div>
+                        <div class="inner-cutout-hole"></div>
+                    </div>
+                    <div class="pie-legend-labels">
+                        <div class="legend-item"><span class="color-dot beverage"></span> Beverages (61.5%)</div>
+                        <div class="legend-item"><span class="color-dot food"></span> Cooked Batches (38.5%)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-weekly-ledger" class="app-screen hidden padding-container">
+        <div class="screen-title-block">
+            <h2>Weekly Revenue Ledger Figures</h2>
+            <p class="breadcrumbs">Secure Root / Financial Performance Statements</p>
+        </div>
+
+        <div class="revenue-hero-card">
+            <span class="hero-label">Grand Total System Cumulative Revenue (Current Week)</span>
+            <h1 class="hero-amount-display">€5,450.00</h1>
+        </div>
+
+        <div class="split-layout-grid">
+            <div class="content-card">
+                <div class="table-header-flex">
+                    <h3>Food Sales Breakdown</h3>
+                    <span class="subtotal-indicator">Subtotal: €2,100.00</span>
+                </div>
+                <table class="financial-data-table">
+                    <thead>
+                        <tr><th>Item Category</th><th>Volume Sold</th><th class="text-right">Gross Income</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Cooked Savory Batches (Pies, Rolls)</td><td>900 units</td><td class="text-right font-semibold">€1,800.00</td></tr>
+                        <tr><td>Confectionery & Desserts</td><td>150 units</td><td class="text-right font-semibold">€300.00</td></tr>
+                    </tbody>
+                </table>
+                <p class="audit-disclaimer-note">✓ Values align flawlessly with terminal physical log counts submitted via operational forms.</p>
+            </div>
+
+            <div class="content-card">
+                <div class="table-header-flex">
+                    <h3>Beverage Sales Breakdown</h3>
+                    <span class="subtotal-indicator">Subtotal: €3,350.00</span>
+                </div>
+                <table class="financial-data-table">
+                    <thead>
+                        <tr><th>Item Category</th><th>Volume Sold</th><th class="text-right">Gross Income</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Soft Drinks (Carbonated / Juices)</td><td>1,000 units</td><td class="text-right font-semibold">€1,500.00</td></tr>
+                        <tr><td>Premium Lagers & Beers</td><td>400 units</td><td class="text-right font-semibold">€1,200.00</td></tr>
+                        <tr><td>Selected Wines</td><td>130 units</td><td class="text-right font-semibold">€650.00</td></tr>
+                    </tbody>
+                </table>
+                <p class="audit-disclaimer-note">✓ Values align flawlessly with terminal physical log counts submitted via operational forms.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-settings" class="app-screen hidden padding-container">
+        <div class="screen-title-block">
+            <h2>Application Profile & Governance Settings</h2>
+            <p class="breadcrumbs">Global System Node / Configurations</p>
+        </div>
+
+        <div class="split-layout-grid">
+            <div class="card-column">
+                <div class="content-card">
+                    <h3>Application System Metrics</h3>
+                    <div class="settings-data-row">
+                        <span>Architecture Build Version</span>
+                        <span class="badge-tag">v1.1 Stable</span>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 12px;">Check Server Connection</button>
+                </div>
+                
+                <div class="content-card" style="margin-top: 24px;">
+                    <h3>Regulatory Statements & Compliance</h3>
+                    <ul class="settings-links-list">
+                        <li><span>Terms of Corporate Service</span> <a>Review Documentation ↗</a></li>
+                        <li><span>Encrypted Data Privacy Standards</span> <a>View Vault Rules ↗</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>Account Authority Settings</h3>
+                <div class="settings-data-row">
+                    <span>Active Session Sign-In Identity</span>
+                    <strong id="settings-session-identity-label">Jane D. (Standard Employee Access)</strong>
+                </div>
+                <p class="security-warning-blurb">Notice: System tracking logging records current hardware terminal coordinates for security protocols during open active sessions.</p>
+                <button id="btn-trigger-logout-modal" class="btn btn-danger w-100" style="margin-top: 40px;">Terminate App Session (Logout)</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-success-alert" class="modal-backdrop-blur hidden">
+        <div class="modal-window animate-scale">
+            <div class="modal-status-icon green-theme">✓</div>
+            <h2>DATA LOGGED SUCCESSFULLY!</h2>
+            <p>The operational batch counts have been compiled, processed, and written to the remote administrative vault ledger. The business owner can monitor these figure breakdowns safely.</p>
+            <button id="btn-close-success-modal" class="btn btn-primary btn-block">Acknowledge & Clear Terminal</button>
+        </div>
+    </div>
+
+    <div id="modal-logout-warning" class="modal-backdrop-blur hidden">
+        <div class="modal-window animate-scale">
+            <div class="modal-status-icon red-theme">✕</div>
+            <h2 class="danger-title">Are You Sure?</h2>
+            <p>You are about to log out of the secure SnackFlow system terminal. Your standard active tracking state and the owner data audit trail metrics will end instantly. Please validate execution.</p>
+            <div class="modal-double-buttons">
+                <button id="btn-confirm-logout-execution" class="btn btn-danger">YES, LOGOUT NOW</button>
+                <button id="btn-cancel-logout-modal" class="btn btn-secondary">NO, REMAIN LOGGED IN</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-manager-auth" class="modal-backdrop-blur hidden">
+        <div class="modal-window animate-scale">
+            <div class="modal-status-icon" style="background: #E67E22; box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);">🔑</div>
+            <h2>Supervisor Verification Token</h2>
+            <p>Back-of-house logistical entries require administrative authentication. Please enter the operational manager bypass PIN to unlock this terminal sheet.</p>
+            <div class="form-group" style="max-width: 280px; margin: 0 auto 24px auto;">
+                <input type="password" id="input-manager-pin" placeholder="Enter Supervisor PIN" style="text-align: center; letter-spacing: 4px; font-size: 18px;">
+            </div>
+            <div class="modal-double-buttons">
+                <button id="btn-verify-manager-pin" class="btn btn-primary">Verify & Unlock</button>
+                <button id="btn-cancel-manager-modal" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let activeUserRole = 'employee';
+
+        const screens = {
+            login: document.getElementById('screen-login'),
+            empDashboard: document.getElementById('screen-employee-dashboard'),
+            salesEntry: document.getElementById('screen-sales-entry'),
+            groceryEntry: document.getElementById('screen-grocery-entry'),
+            ownerDashboard: document.getElementById('screen-owner-dashboard'),
+            analyticsVault: document.getElementById('screen-analytics-vault'),
+            weeklyLedger: document.getElementById('screen-weekly-ledger'),
+            settings: document.getElementById('screen-settings')
+        };
+
+        const globalHeader = document.getElementById('global-header');
+        const headerUserLabel = document.getElementById('header-user-label');
+        const settingsIdentityLabel = document.getElementById('settings-session-identity-label');
+        const navLedgerBtn = document.getElementById('nav-ledger');
+
+        const tabEmployee = document.getElementById('login-tab-employee');
+        const tabOwner = document.getElementById('login-tab-owner');
+        const ownerPasswordField = document.getElementById('owner-secret-field');
+
+        const modalSuccess = document.getElementById('modal-success-alert');
+        const modalLogout = document.getElementById('modal-logout-warning');
+        const modalManagerAuth = document.getElementById('modal-manager-auth');
+
+        function routeToScreen(targetScreenKey) {
+            Object.values(screens).forEach(screen => screen.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            screens[targetScreenKey].classList.remove('hidden');
+
+            if (targetScreenKey === 'login') {
+                globalHeader.classList.add('hidden');
+            } else {
+                globalHeader.classList.remove('hidden');
+                if (targetScreenKey === 'empDashboard' || targetScreenKey === 'ownerDashboard') document.getElementById('nav-home').classList.add('active');
+                if (targetScreenKey === 'weeklyLedger') navLedgerBtn.classList.add('active');
+                if (targetScreenKey === 'settings') document.getElementById('nav-settings').classList.add('active');
+            }
+        }
+
+        tabEmployee.addEventListener('click', () => {
+            tabEmployee.classList.add('active'); tabOwner.classList.remove('active');
+            ownerPasswordField.classList.add('hidden'); activeUserRole = 'employee';
+        });
+        tabOwner.addEventListener('click', () => {
+            tabOwner.classList.add('active'); tabEmployee.classList.remove('active');
+            ownerPasswordField.classList.remove('hidden'); activeUserRole = 'owner';
+        });
+
+        document.getElementById('btn-authenticate').addEventListener('click', () => {
+            if (activeUserRole === 'owner') {
+                headerUserLabel.textContent = "Jane D. (Owner)";
+                settingsIdentityLabel.textContent = "Jane D. (Secure Root Owner Access)";
+                navLedgerBtn.classList.remove('hidden-employee');
+                routeToScreen('ownerDashboard');
+            } else {
+                headerUserLabel.textContent = "Jane D.";
+                settingsIdentityLabel.textContent = "Jane D. (Standard Employee Access)";
+                navLedgerBtn.classList.add('hidden-employee');
+                routeToScreen('empDashboard');
+            }
+        });
+
+        document.getElementById('action-trigger-sales').addEventListener('click', () => routeToScreen('salesEntry'));
+        document.getElementById('action-trigger-grocery').addEventListener('click', () => modalManagerAuth.classList.remove('hidden'));
+        document.getElementById('card-trigger-vault').addEventListener('click', () => routeToScreen('analyticsVault'));
+
+        document.getElementById('nav-home').addEventListener('click', () => {
+            if (activeUserRole === 'owner') routeToScreen('ownerDashboard');
+            else routeToScreen('empDashboard');
+        });
+        navLedgerBtn.addEventListener('click', () => {
+            if (activeUserRole === 'owner') routeToScreen('weeklyLedger');
+        });
+        document.getElementById('nav-settings').addEventListener('click', () => routeToScreen('settings'));
+
+        document.querySelectorAll('.numeric-stepper').forEach(wrapper => {
+            const decrementBtn = wrapper.querySelector('.step-decrement');
+            const incrementBtn = wrapper.querySelector('.step-increment');
+            const targetInput = wrapper.querySelector('input');
+
+            incrementBtn.addEventListener('click', () => { targetInput.value = parseInt(targetInput.value) + 1; updateLiveBasketView(); });
+            decrementBtn.addEventListener('click', () => { if (parseInt(targetInput.value) > 0) { targetInput.value = parseInt(targetInput.value) - 1; updateLiveBasketView(); } });
+        });
+
+        function updateLiveBasketView() {
+            const basketTable = document.getElementById('basket-table');
+            const basketEmptyMsg = document.getElementById('basket-empty-msg');
+            const tbody = document.getElementById('basket-tbody');
+            
+            tbody.innerHTML = "";
+            let hasItems = false;
+
+            const trackingInputs = [
+                { name: "Cooked Savory Batches", val: parseInt(document.getElementById('qty-food').value) },
+                { name: "Confectionery / Snacks", val: parseInt(document.getElementById('qty-snacks').value) },
+                { name: "Beverages / Soft Drinks", val: parseInt(document.getElementById('qty-drinks').value) }
+            ];
+
+            trackingInputs.forEach(item => {
+                if (item.val > 0) {
+                    hasItems = true;
+                    const newRow = `<tr><td>${item.name}</td><td class="text-right font-semibold">${item.val} units</td></tr>`;
+                    tbody.innerHTML += newRow;
+                }
+            });
+
+            if (hasItems) {
+                basketTable.classList.remove('hidden-table'); basketEmptyMsg.classList.add('hidden');
+            } else {
+                basketTable.classList.add('hidden-table'); basketEmptyMsg.classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('btn-submit-sales-batch').addEventListener('click', () => modalSuccess.classList.remove('hidden'));
+        document.getElementById('btn-submit-grocery-batch').addEventListener('click', () => modalSuccess.classList.remove('hidden'));
+        
+        document.getElementById('btn-close-success-modal').addEventListener('click', () => {
+            modalSuccess.classList.add('hidden');
+            document.getElementById('qty-food').value = 0;
+            document.getElementById('qty-snacks').value = 0;
+            document.getElementById('qty-drinks').value = 0;
+            document.getElementById('qty-flour').value = 0;
+            document.getElementById('qty-oil').value = 0;
+            document.getElementById('qty-crates').value = 0;
+            updateLiveBasketView();
+            routeToScreen('empDashboard');
+        });
+
+        document.getElementById('btn-cancel-manager-modal').addEventListener('click', () => modalManagerAuth.classList.add('hidden'));
+        document.getElementById('btn-verify-manager-pin').addEventListener('click', () => {
+            modalManagerAuth.classList.add('hidden');
+            document.getElementById('input-manager-pin').value = "";
+            routeToScreen('groceryEntry');
+        });
+
+        document.getElementById('btn-trigger-logout-modal').addEventListener('click', () => modalLogout.classList.remove('hidden'));
+        document.getElementById('btn-cancel-logout-modal').addEventListener('click', () => modalLogout.classList.add('hidden'));
+        document.getElementById('btn-confirm-logout-execution').addEventListener('click', () => {
+            modalLogout.classList.add('hidden');
+            document.getElementById('input-password').value = "";
+            routeToScreen('login');
+        });
+    </script>
+</body>
+</html>
